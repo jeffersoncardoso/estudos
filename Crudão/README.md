@@ -1,1 +1,0 @@
-readme adicionado no crudão
