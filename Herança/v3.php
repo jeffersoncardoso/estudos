@@ -4,10 +4,14 @@
 	/*A classe funcionário ditará atributos que TODOS os funcionários do banco conterá,
 	por tanto, será uma classe abstrata!*/
 
+/*  Imaginando que necessitaríamos de um método para autenticar alguma entidade que não seja um funcionário (por exemplo, um cliente),
+	temos como solução o usu de interfaces: 
+	Funcionam como uma espécie de contrato em que se encontram as regras (métodos sem corpo[O QUE deverão fazer(1)]) que os assinantes (que 'implementarão o contrato') deverão fazer (métodos com o corpo[COMO irão fazer(3) com O QUE TEM (2)]), cabendo a estes definir como executarão
+	as regras com o que têm. */ 	
 	abstract class Funcionario{
 		private $salario;
 		private $nome;
-		/*Declarando uma função abstrata, cabamos por tornar nossa classe obrigatoriamente abstrata,
+		/*Declarando uma função abstrata, acabamos por tornar nossa classe obrigatoriamente abstrata,
 		só sendo possível chamá-la colocando este método na classe que iremos herda-la.
 		obs=> Gerente().*/
 		abstract protected function verificar();
@@ -21,7 +25,22 @@
 			return $this->salario;
 		}
 	}
-	class Gerente extends Funcionario{
+
+	interface Autenticavel{
+		function autenticar($senha);//O que deve fazer(1)
+	}
+
+	/*O "assinante" deverá "dizer que quer assinar" o 'contrato' usando o "implements" seguido do nome da interface:*/
+	class Gerente extends Funcionario implements Autenticavel{
+		private $senha; // o que tem [2]
+		/*Chamada do método da interface*/
+		public function autenticar($senha){
+			if($this->senha != $senha){ //COMO FAZER[3]
+				return false;
+			}else{
+				return true;
+			}
+		}
 		/*método de reescrita (override) para adptar uma função da classe herdade a nossa classe*/
 		public function getBonificacao(){
 			return $this->salario*0.15;
@@ -29,8 +48,20 @@
 		/*Para poder instanciar uma classe que extenda outra abstrata, devemos declarar a função
 		abstrata da última, mas não possuindo código.*/
 		public function verificar(){}
+
 	}
-	class Escriturario extends Funcionario{
+
+	/*O "assinante" deverá "dizer que quer assinar" o 'contrato' usando o "implements" seguido do nome da interface:*/
+	class Escriturario extends Funcionario implements Autenticavel{
+		private $senha; // o que tem [2]
+		/*Chamada do método da interface*/
+		public function autenticar($senha){
+			if($this->senha != $senha){ //COMO FAZER[3]
+				return false;
+			}else{
+				return true;
+			}
+		}
 		public function getBonificacao(){
 			return $this->salario*0.12;
 		}
@@ -55,6 +86,15 @@
 			return $this->totalBon;
 		}
 	}
+
+	/*Classe criada somente com o intuito de vermos a nossa interface sendo utilizada e com poliformia*/
+	class SistemaInterno{
+		public function login(Autenticavel $a){
+			$senha = //pega a senha de algum lugar;
+			$ok    = $a.autenticar($senha);
+		}
+	}
+	
 	$main = new Gerente();
 	$main->nome = "Marcelo";
 	$main->salario = 3000;
