@@ -1,0 +1,19 @@
+.container{
+	margin: 0 auto;
+	width: 50vw;
+	text-align: center;
+}
+ul {
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+}
+a{
+	text-decoration: none;
+}
+#formCad, #formCons{
+	display: none;
+}
+table{
+	width:25vw;
+}
