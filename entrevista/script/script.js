@@ -10,6 +10,10 @@ function consON(){
 	var cons = document.getElementById("formCons");
 	cons.style.display="block";
 }
+function tableOn(){
+	var table = document.getElementById("resultCons");
+	table.style.display="block";
+}
 
 function cadOff(){
 	var cad = document.getElementById("formCad");

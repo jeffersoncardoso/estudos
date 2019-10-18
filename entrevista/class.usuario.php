@@ -39,5 +39,17 @@
 				return $sql->fetchAll();
 			}
 		}
+		public function getUsuario($forma,$conteudo){
+				$sql = "SELECT * FROM tbl_usuarios WHERE :forma = :conteudo";
+				$sql = $this->pdo->prepare($sql);
+				$sql->bindValue(":forma",$forma);
+				$sql->bindValue(":conteudo",$conteudo);
+				$sql->execute();
+				if($sql->rowCount()>0){
+					return $sql->fetchAll();
+				}else{
+					echo "Usuário não encontrado";
+				}
+		}
 	}
 ?>

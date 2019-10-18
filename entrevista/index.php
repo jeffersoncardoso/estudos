@@ -71,14 +71,41 @@
 				<div id="formCons">
 					<form name="consulta" method="POST">
 						<span>Consultar por </span>
-						<select>
+						<select name="forma">
 							<option value="nome">nome</option>
 							<option value="login">login</option>
 							<option value="email">email</option>
 						</select>
-						<input type="text" name="pesquisa">
-						<input type="submit" value="consultar">
+						<input type="text" name="conteudo">
+						<input type="submit" value="consultar" onclick="tableON()">
 					</form>
+					<table border="1" id="resultCons">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Nome</th>
+								<th>Email</th>
+								<th>Login</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$forma = $_POST['forma'];
+								$conteudo = $_POST['conteudo'];
+								
+								foreach($obj->getUsuario($forma,$conteudo) as $info):
+							?>
+								<tr>
+									<th><?php echo $info['id']?></th>
+									<th><?php echo $info['nome']?></th>
+									<th><?php echo $info['email']?></th>
+									<th><?php echo $info['login']?></th>
+								</tr>
+							<?php
+								endforeach;
+							?>
+						</tbody>
+					</table>
 				</div>
 			</li>
 		</ul>
