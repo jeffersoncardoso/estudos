@@ -17,22 +17,24 @@
 		</thead>
 		<tbody>
 			<?php
-				$campo = $_GET['campo'];
-				$filtro = $_GET['filtro'];
-				echo $campo;
-				echo($obj->getUsuario($campo,$filtro));
+				$campo = addslashes($_GET['campo']);
+				$filtro = addslashes($_GET['filtro']);
+				echo $campo."=".$filtro;
+
+				print_r($obj->getUsuario('id',1)[0]);
+				echo('<Br>'.count($obj->getUsuario('id',1)[0]));
 				
 				
-				//foreach($obj->getUsuario($forma,$conteudo) as $info):
+			foreach($obj->getUsuario($campo,$filtro) as $info):
 			?>
-				<!--<tr>
+		<		<tr>
 					<th><?php echo $info['id']?></th>
 					<th><?php echo $info['nome']?></th>
 					<th><?php echo $info['email']?></th>
 					<th><?php echo $info['login']?></th>
 				</tr>-->
 			<?php
-				//endforeach;
+				endforeach;
 			?>
 		</tbody>
 	</table>
