@@ -69,43 +69,17 @@
 			<li>
 				<a href="#" onclick="consON();cadOff();listOff()">Consultar Usuário</a>
 				<div id="formCons">
-					<form name="consulta" method="POST">
+					<form name="consulta" method="GET" action="teste.php">
 						<span>Consultar por </span>
-						<select name="forma">
+						<select name="campo">
+							<option value="id">id</option>
 							<option value="nome">nome</option>
 							<option value="login">login</option>
 							<option value="email">email</option>
 						</select>
-						<input type="text" name="conteudo">
-						<input type="submit" value="consultar" onclick="tableON()">
+						<input type="text" name="filtro">
+						<input type="submit" value="consultar">
 					</form>
-					<table border="1" id="resultCons">
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>Nome</th>
-								<th>Email</th>
-								<th>Login</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-								$forma = $_POST['forma'];
-								$conteudo = $_POST['conteudo'];
-								
-								foreach($obj->getUsuario($forma,$conteudo) as $info):
-							?>
-								<tr>
-									<th><?php echo $info['id']?></th>
-									<th><?php echo $info['nome']?></th>
-									<th><?php echo $info['email']?></th>
-									<th><?php echo $info['login']?></th>
-								</tr>
-							<?php
-								endforeach;
-							?>
-						</tbody>
-					</table>
 				</div>
 			</li>
 		</ul>

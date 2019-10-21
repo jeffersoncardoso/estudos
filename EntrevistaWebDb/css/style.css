@@ -1,0 +1,14 @@
+.container{
+	margin: 0 auto;
+	width: 60vw;
+	text-align: center;
+}
+ul{
+	list-style: none;
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+#formCad,#lista,#consulta{
+	display:none;
+}
