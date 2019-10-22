@@ -52,16 +52,21 @@
 				}
 		}*/
 		public function getUsuario($campo,$filtro){
-				$sql = "SELECT * from tbl_usuarios WHERE $campo = $filtro";
-				$sql = $this->pdo->query($sql);
-				/*$sql->bindValue(":campo",$campo);
-				$sql->bindValue(":filtro",$filtro);
-				$sql->execute();*/				
-				if($sql->rowCount()>0){
-					return $sql->fetchAll();
-				}else{
-					echo "<br> Usuário não encontrado";
-				}
+			$operador = ($campo == 'nome') ? 'like' : '=';
+			$filtro = ($operador == 'like') ? '%'.$filtro.'%' : $filtro;
+			
+			$sql = "SELECT * from tbl_usuarios WHERE $campo $operador :$campo";
+			
+			$sql = $this->pdo->prepare($sql);
+			$sql->bindValue(":$campo", $filtro);
+			
+			$sql->execute();
+			
+			if($sql->rowCount()>0){
+				return $sql->fetchAll();
+			}else{
+				echo "<br> Usuário não encontrado";
+			}
 		}
 	}
 ?>
